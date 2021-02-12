@@ -4,8 +4,9 @@
       <canvas id="render" width="512" height="512" ref="canvas" class="render"></canvas>
     </section>
     <section class="column ui-section">
+      <label for="code" class="label">Code</label>
       <div class="is-family-code">async function (data, snapshot) {</div>
-      <b-field label="Code">
+      <b-field>
         <b-input type="textarea" rows="15" v-model="code" spellcheck="false" autocapitalize="off"
                  custom-class="is-family-code" id="code"></b-input>
       </b-field>
