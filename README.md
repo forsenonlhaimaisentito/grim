@@ -1,5 +1,9 @@
 # grim
 
+A simple sorting algorithm visualizer with custom code support.
+
+Try it at https://grim.catafratta.org/
+
 ## Project setup
 ```
 npm install
