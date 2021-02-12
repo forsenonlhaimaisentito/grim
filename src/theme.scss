@@ -1,0 +1,107 @@
+// This file is a mess, barely enough to get it to be dark
+// I wish good Bulma/Buefy dark themes were a thing
+
+@import "~bulma/sass/utilities/_all";
+
+$scheme-main: #151211;
+
+$input-color: #aaa;
+$input-background-color: #241f1d;
+
+$text: #ddd;
+$text-strong: $text;
+
+$primary: #559992;
+$primary-light: findLightColor($primary);
+$primary-dark: findDarkColor($primary);
+$primary-invert: findColorInvert($primary);
+
+$danger: #c62828;
+$danger-light: findLightColor($danger);
+$danger-dark: findDarkColor($danger);
+$danger-invert: findColorInvert($danger);
+
+$link: $primary;
+$link-invert: $primary-invert;
+$link-hover: $link;
+$link-focus: $primary-light;
+$link-active: $primary-light;
+$link-focus-border: $primary-light;
+
+// Lists and maps
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps((
+        "white": (
+                $white,
+                $black,
+        ),
+        "black": (
+                $black,
+                $white,
+        ),
+        "light": (
+                $light,
+                $light-invert,
+        ),
+        "dark": (
+                $dark,
+                $dark-invert,
+        ),
+        "primary": (
+                $primary,
+                $primary-invert,
+                $primary-light,
+                $primary-dark,
+        ),
+        "link": (
+                $link,
+                $link-invert,
+                $link-light,
+                $link-dark,
+        ),
+        "info": (
+                $info,
+                $info-invert,
+                $info-light,
+                $info-dark,
+        ),
+        "success": (
+                $success,
+                $success-invert,
+                $success-light,
+                $success-dark,
+        ),
+        "warning": (
+                $warning,
+                $warning-invert,
+                $warning-light,
+                $warning-dark,
+        ),
+        "danger": (
+                $danger,
+                $danger-invert,
+                $danger-light,
+                $danger-dark,
+        ),
+),
+        $custom-colors
+);
+
+
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
+/*
+input, textarea {
+  color: $grey-light !important;
+  background-color: $grey-dark !important;
+}
+*/
+.code-input textarea {
+  font-family: "Fira Code", monospace;
+}
+
+
