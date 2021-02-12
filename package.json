@@ -1,6 +1,7 @@
 {
   "name": "grim",
   "version": "0.1.0",
+  "license": "BSD",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
