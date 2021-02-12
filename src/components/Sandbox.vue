@@ -6,8 +6,9 @@
     <section class="column ui-section">
       <b-field label="Code">
         <b-input type="textarea" rows="15" v-model="code" spellcheck="false" autocapitalize="off"
-                 class="code-input"></b-input>
+                 custom-class="is-family-code" id="code"></b-input>
       </b-field>
+      <div class="is-family-code">}</div>
     </section>
     <section class="column ui-section is-one-quarter">
       <b-field label="Load preset">
@@ -23,7 +24,7 @@
       <b-field label="Frame skip">
         <b-input type="number" :min="0" :max="1000" v-model="frameSkip" :disabled="running"></b-input>
       </b-field>
-      <div class="level controls-buttons">
+      <div class="level my-2">
         <div class="level-left">
           <div class="level-item buttons">
             <b-button v-on:click="shuffleData" :disabled="running">Shuffle</b-button>
@@ -154,11 +155,7 @@ export default Vue.extend({
 
 <style scoped>
 .ui-section {
-  padding: 4ex 4ex 0;
-}
-
-.code-input {
-  font-family: "Fira Code", monospace !important;
+  padding: 1rem 1rem 0;
 }
 
 .render {

@@ -11,6 +11,8 @@ $input-background-color: #241f1d;
 $text: #ddd;
 $text-strong: $text;
 
+$family-code: "Fira Code", monospace;
+
 $primary: #559992;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
@@ -93,15 +95,5 @@ $colors: mergeColorMaps((
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
-
-/*
-input, textarea {
-  color: $grey-light !important;
-  background-color: $grey-dark !important;
-}
-*/
-.code-input textarea {
-  font-family: "Fira Code", monospace;
-}
 
 
