@@ -38,6 +38,24 @@
         </div>
       </div>
     </section>
+    <b-modal v-if="lastError" v-model="isDisplayingError" trap-focus has-modal-card :destroy-on-hide="false">
+      <div class="modal-card" style="width: auto;">
+        <header class="modal-card-head" style="background-color: #241f1d">
+          <h1 class="modal-card-title">{{ lastError.type }}</h1>
+        </header>
+        <section class="modal-card-body">
+          <div>
+            An error has occurred while attempting to run your code:
+          </div>
+          <div class="is-family-code my-2 has-text-danger">
+            {{ lastError.message }}
+          </div>
+          <div>
+            <pre class="is-family-code stack-trace">{{ lastError.stack }}</pre>
+          </div>
+        </section>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -60,6 +78,12 @@ const buildDataArray = (side: number): number[] => {
   return data
 }
 
+interface ErrorInfo {
+  type: string
+  message: string
+  stack: string
+}
+
 const defaultDataSize = 32;
 const defaultFrameSkip = 1;
 
@@ -79,6 +103,8 @@ export default Vue.extend({
       runner: null as Runner | null,
       renderer: null as Renderer | null,
       preset: null as VisualizerPreset | null,
+      lastError: null as ErrorInfo | null,
+      isDisplayingError: false,
       presets,
       data
     }
@@ -98,6 +124,12 @@ export default Vue.extend({
         algo = parseAlgorithmCode(this.code)
       } catch (e) {
         console.error("Code parse error", e)
+        this.lastError = {
+          type: "Code parsing error",
+          message: e.message,
+          stack: "Due to API limitations we can't tell what line/char contains the error"
+        }
+        this.isDisplayingError = true
         return
       }
 
@@ -108,6 +140,8 @@ export default Vue.extend({
         this.renderNow()
       } catch (e) {
         console.error("Algorithm run-time error", e)
+        this.lastError = {type: "Run-time error", message: e.message, stack: e.stack}
+        this.isDisplayingError = true
       } finally {
         this.runner = null
         this.running = false
@@ -163,7 +197,8 @@ export default Vue.extend({
   max-width: 100%;
 }
 
-.controls-buttons {
-  padding: 2ex 0;
+.stack-trace {
+  color: #aaa;
+  background-color: #241f1d;
 }
 </style>
