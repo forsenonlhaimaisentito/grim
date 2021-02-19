@@ -1,64 +1,40 @@
-<template>
-  <div class="columns">
-    <section class="column ui-section is-narrow">
-      <canvas id="render" width="512" height="512" ref="canvas" class="render"></canvas>
-    </section>
-    <section class="column ui-section">
-      <label for="code" class="label">Code</label>
-      <div class="is-family-code">async function (data, snapshot) {</div>
-      <b-field>
-        <b-input type="textarea" rows="15" v-model="code" spellcheck="false" autocapitalize="off"
-                 custom-class="is-family-code" id="code"></b-input>
-      </b-field>
-      <div class="is-family-code">}</div>
-    </section>
-    <section class="column ui-section is-one-quarter">
-      <b-field label="Load preset">
-        <b-select placeholder="Select a preset" expanded v-model="preset">
-          <option v-for="option in presets" :key="option.name" :value="option">
-            {{ option.name }}
-          </option>
-        </b-select>
-      </b-field>
-      <b-field label="Square of array size">
-        <b-input type="number" :min="2" :max="100" v-model="dataSize" :disabled="running"></b-input>
-      </b-field>
-      <b-field label="Frame skip">
-        <b-input type="number" :min="0" :max="1000" v-model="frameSkip" :disabled="running"></b-input>
-      </b-field>
-      <div class="level my-2">
-        <div class="level-left">
-          <div class="level-item buttons">
-            <b-button v-on:click="shuffleData" :disabled="running">Shuffle</b-button>
-          </div>
-        </div>
-        <div class="level-right">
-          <div class="level-item">
-            <b-button v-on:click="runAlgo" v-if="!running" class="button is-primary">Run</b-button>
-            <b-button v-on:click="cancel" v-if="running" class="button is-danger">Stop</b-button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <b-modal v-if="lastError" v-model="isDisplayingError" trap-focus has-modal-card :destroy-on-hide="false">
-      <div class="modal-card" style="width: auto;">
-        <header class="modal-card-head" style="background-color: #241f1d">
-          <h1 class="modal-card-title">{{ lastError.type }}</h1>
-        </header>
-        <section class="modal-card-body">
-          <div>
-            An error has occurred while attempting to run your code:
-          </div>
-          <div class="is-family-code my-2 has-text-danger">
-            {{ lastError.message }}
-          </div>
-          <div>
-            <pre class="is-family-code stack-trace">{{ lastError.stack }}</pre>
-          </div>
-        </section>
-      </div>
-    </b-modal>
-  </div>
+<template lang="pug">
+  .columns
+    section.column.ui-section.is-narrow
+      canvas#render.render(width="512" height="512" ref="canvas")
+
+    section.column.ui-section
+      label.label(for="code") Code
+      .is-family-code async function (data, snapshot) {
+      textarea#code.textarea.is-family-code(v-model="code" rows="15" spellcheck="false" autocapitalize="off")
+      .is-family-code }
+
+    section.column.ui-section.is-one-quarter
+      b-field(label="Load preset")
+        b-select(v-model="preset" placeholder="Select a preset" expanded)
+          option(v-for="option in presets" :key="option.name" :value="option") {{ option.name }}
+      b-field(label="Square of array size")
+        b-input(v-model="dataSize" type="number" :min="2" :max="100" :disabled="running")
+      b-field(label="Frame skip")
+        b-input(v-model="frameSkip" type="number" :min="0" :max="1024" :disabled="running")
+      .level.my-2
+        .level-left
+          .level-item.buttons
+            b-button(v-on:click="shuffleData" :disabled="running") Shuffle
+        .level-right
+          .level-item
+            b-button.button.is-primary(v-on:click="runAlgo" v-if="!running") Run
+            b-button.button.is-danger(v-on:click="cancel" v-if="running") Stop
+
+    b-modal(v-model="isDisplayingError" v-if="lastError" trap-focus has-modal-card :destroy-on-hide="false")
+      .modal-card(style="width: auto")
+        header.modal-card-head.dark-bg-pls
+          h1.modal-card-title {{ lastError.type }}
+        section.modal-card-body
+          div An error has occurred while attempting to run your code:
+          div.is-family-code.has-text-danger.my-2 {{ lastError.message }}
+          div
+            pre.is-family-code.stack-trace {{ lastError.stack }}
 </template>
 
 <script lang="ts">
@@ -171,7 +147,6 @@ export default Vue.extend({
       this.resetData()
     },
     frameSkip() {
-      console.log("yolo")
       this.preset = null
     },
     code() {
@@ -201,6 +176,10 @@ export default Vue.extend({
 
 .stack-trace {
   color: #aaa;
+  background-color: #241f1d;
+}
+
+.dark-bg-pls {
   background-color: #241f1d;
 }
 </style>

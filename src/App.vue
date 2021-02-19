@@ -1,10 +1,8 @@
-<template>
-  <div id="app">
-    <section class="title-section">
-      <h1 class="title has-text-centered">grim 0.1.0</h1>
-    </section>
-    <Sandbox/>
-  </div>
+<template lang="pug">
+  #app
+    section.title-section
+      h1.title.has-text-centered grim 0.1.0
+    Sandbox
 </template>
 
 <script lang="ts">
